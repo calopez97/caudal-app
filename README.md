@@ -14,53 +14,70 @@ Caudal está pensada para el inversionista individual que quiere claridad sobre 
 ### Frontend
 | Tecnología | Uso |
 |---|---|
-| **React 1 - Next.js** | Librería principal de interfaz de usuario |
+| **Next.js 16.2.2** | Framework fullstack con App Router, SSR y routing avanzado |
+| **React 19.2.4** | Librería principal de interfaz de usuario |
+| **TypeScript** | Tipado estático para mayor robustez |
+| **Tailwind CSS v4** | Framework de estilos utilitarios con variables CSS |
+| **Shadcn/ui** | Componentes de UI reutilizables y accesibles |
 | **Recharts** | Gráficas de área, dona y métricas visuales |
+| **React Hook Form + Zod** | Manejo de formularios con validación |
+| **Lucide React & Phosphor Icons** | Iconografía consistente |
+| **React Hot Toast** | Notificaciones de usuario |
+| **Base UI React** | Componentes adicionales de UI |
 | **CSS Variables** | Sistema de diseño con soporte automático para modo claro/oscuro |
-| **Google Fonts** | Tipografías: Syne, Space Mono, Outfit |
+| **Geist & JetBrains Mono** | Tipografías modernas para interfaz |
  
-### Almacenamiento — Fase 1
+### Backend & Almacenamiento
 | Tecnología | Uso |
 |---|---|
-| **localStorage** | Persistencia de usuarios, portafolios y operaciones en el cliente |
+| **Supabase** | Backend as a Service: autenticación, base de datos y API REST |
+| **PostgreSQL** | Base de datos relacional principal (a través de Supabase) |
  
 ### APIs externas
 | API | Uso |
 |---|---|
 | **CoinGecko API** | Precios en tiempo real de criptomonedas (endpoint `/simple/price`) |
  
-### Planeado para fases siguientes
-| Tecnología | Uso previsto |
+### Herramientas de desarrollo
+| Tecnología | Uso |
 |---|---|
-| **Next.js** | Framework fullstack con SSR y routing avanzado |
-| **Supabase** | Backend as a Service: autenticación, base de datos y API REST |
-| **PostgreSQL** | Base de datos relacional principal |
-| **Polygon.io / Alpha Vantage** | Precios de acciones y commodities en tiempo real |
+| **ESLint** | Linting y calidad de código |
+| **PostCSS** | Procesamiento de CSS |
+| **Tailwind Merge & Clsx** | Utilidades para clases CSS dinámicas |
+| **Class Variance Authority** | Variantes de componentes |
 
 ---
  
 ## Arquitectura
  
 ```
-caudal/
-├── src/
-│   ├── components/
-│   │   ├── Auth/              # Pantallas de login y registro
-│   │   ├── Dashboard/         # Vista principal y gráficas
-│   │   ├── Assets/            # Listado, detalle y formulario de activos
-│   │   ├── Operations/        # Historial y formulario de operaciones
-│   │   └── UI/                # Componentes reutilizables (Toast, Modal, etc.)
-│   ├── hooks/
-│   │   ├── useAuth.js         # Lógica de autenticación
-│   │   └── usePortfolio.js    # Lógica del portafolio y activos
-│   ├── utils/
-│   │   ├── formatters.js      # Utilidades de formato (moneda, porcentaje, fecha)
-│   │   └── calculations.js    # Cálculos de P&L y métricas
-│   ├── constants/
-│   │   └── assetTypes.js      # Tipos de activos, colores e íconos
-│   └── App.jsx                # Componente raíz
-├── public/
+investment-tracker/
+├── app/                      # App Router de Next.js
+│   ├── globals.css           # Estilos globales y variables CSS
+│   ├── layout.tsx            # Layout raíz de la aplicación
+│   ├── page.tsx              # Página principal
+│   ├── dashboard/            # Dashboard del usuario
+│   ├── login/                # Página de inicio de sesión
+│   └── new-asset/            # Formulario para nuevos activos
+├── components/               # Componentes reutilizables
+│   ├── ui/                   # Componentes base de Shadcn/ui
+│   ├── auth/                 # Componentes de autenticación
+│   └── PortfolioChart.tsx    # Gráfica del portafolio
+├── lib/                      # Utilidades y configuración
+│   ├── utils.ts              # Funciones auxiliares
+│   ├── services/             # Servicios de negocio
+│   │   ├── assetService.ts   # Gestión de activos
+│   │   ├── marketPriceService.ts # Precios de mercado
+│   │   ├── portfolio.ts      # Lógica del portafolio
+│   │   └── userService.ts    # Gestión de usuarios
+│   └── supabase/             # Configuración de Supabase
+│       ├── client.ts         # Cliente para navegador
+│       └── server.ts         # Cliente para servidor
+├── public/                   # Archivos estáticos
 ├── package.json
+├── tailwind.config.ts        # Configuración de Tailwind
+├── next.config.ts            # Configuración de Next.js
+├── eslint.config.mjs         # Configuración de ESLint
 └── README.md
 ```
  
@@ -80,9 +97,9 @@ Caudal utiliza un sistema de diseño oscuro con acentos en verde esmeralda (`#00
 | `--muted` | `#6b7f9a` | Texto secundario y etiquetas |
  
 **Tipografías**
-- **Syne** — Títulos y encabezados (personalidad de marca)
-- **Space Mono** — Valores monetarios y datos numéricos
-- **Outfit** — Cuerpo de texto e interfaz general
+- **Geist Sans** — Interfaz general y títulos
+- **Geist Mono** — Código y datos técnicos
+- **JetBrains Mono** — Valores monetarios y datos numéricos
 ---
  
 ## Instalación y uso local
@@ -90,7 +107,7 @@ Caudal utiliza un sistema de diseño oscuro con acentos en verde esmeralda (`#00
 ```bash
 # Clonar el repositorio
 git clone https://github.com/calopez97/caudal-app.git
-cd caudal
+cd caudal-app
  
 # Instalar dependencias
 npm install
