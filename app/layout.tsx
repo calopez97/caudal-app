@@ -29,10 +29,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn("h-full", "antialiased", geistSans.variable, geistMono.variable, "font-mono", jetbrainsMono.variable, "dark")}
+      className={cn("h-full", "antialiased", "dark", geistSans.variable, geistMono.variable, "font-mono", jetbrainsMono.variable)}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
-      <Toaster position="bottom-center"/>
+      <body className="min-h-full flex flex-col align-middle justify-center">
+        {children}
+
+       <Toaster position="bottom-center"/>
+      </body>
     </html>
   );
 }
