@@ -54,7 +54,6 @@ const SignUpForm = ({ setTypeSelected }: AuthFormProps) => {
         try {
 
             const requestNewUser = await signup(user);
-            console.log(requestNewUser);
 
             if(requestNewUser.success){
                 toast.success(requestNewUser.message, { duration: 4000, icon: '💡' });
