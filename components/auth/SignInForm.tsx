@@ -17,6 +17,8 @@ import { useState } from "react";
 import { LoaderCircle } from "lucide-react";
 import toast from "react-hot-toast";
 import { AuthFormProps } from "./AuthForm";
+import { login } from "@/actions/auth/auth";
+import { redirect } from "next/navigation";
 
 
 const SignInForm = ({ setTypeSelected }: AuthFormProps) => {
@@ -46,6 +48,12 @@ const SignInForm = ({ setTypeSelected }: AuthFormProps) => {
         setisLoading(true);
 
         try {
+            const resp = await login(data);
+
+            if(resp.success){
+                toast.success(resp.message, { duration: 4000, icon: '🌟' });
+                redirect('/dashboard')
+            }
             console.log(data);
         } catch (error: any) {
             toast.error(error.message, { duration: 2500 });
@@ -59,7 +67,7 @@ const SignInForm = ({ setTypeSelected }: AuthFormProps) => {
     const googleSignIn = async () => {}
 
     return (
-        <div>
+        <>
             <div className="w-full backdrop-blur-xl py-2 rounded-4xl">
                 <div className="text-center">
                     <h1 className="lg:text-5xl md:text-4xl text-3xl font-semibold text-center my-4">Iniciar Sesión</h1>
@@ -184,7 +192,7 @@ const SignInForm = ({ setTypeSelected }: AuthFormProps) => {
                     </span>
                 </p>
             </div>
-        </div>
+        </>
     );
 }
 

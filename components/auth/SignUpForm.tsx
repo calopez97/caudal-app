@@ -17,6 +17,7 @@ import { useState } from "react";
 import { LoaderCircle } from "lucide-react";
 import toast from "react-hot-toast";
 import { AuthFormProps } from "./AuthForm";
+import { signup } from "@/actions/auth/auth";
 
 
 const SignUpForm = ({ setTypeSelected }: AuthFormProps) => {
@@ -51,7 +52,17 @@ const SignUpForm = ({ setTypeSelected }: AuthFormProps) => {
         setisLoading(true);
 
         try {
-            console.log(user);
+
+            const requestNewUser = await signup(user);
+            console.log(requestNewUser);
+
+            if(requestNewUser.success){
+                toast.success(requestNewUser.message, { duration: 4000, icon: '💡' });
+                setTypeSelected('sign-in');
+                form.reset()
+            }
+
+
         } catch (error: any) {
             if (error.message.includes('User already registered')) {
                 toast.error('Este correo electrónico ya está registrado', { duration: 4000 });
@@ -68,7 +79,7 @@ const SignUpForm = ({ setTypeSelected }: AuthFormProps) => {
     }
 
     return (
-        <div>
+        <>
             <div className="w-full backdrop-blur-xl rounded-4xl pb-4">
 
                 <div className="text-center">
@@ -168,7 +179,7 @@ const SignUpForm = ({ setTypeSelected }: AuthFormProps) => {
                     </span>
                 </p>
             </div>
-        </div>
+        </>
     );
 }
 
