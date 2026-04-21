@@ -34,7 +34,6 @@ export default function Dashboard() {
         </div>
       ))}
 
-      <PortfolioChart assets={assets} />  
     </div>
   )
 }
